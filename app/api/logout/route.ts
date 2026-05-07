@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 
 function clearSession(request: Request) {
-  const response = NextResponse.redirect(new URL("/login", request.url), {
-    status: 303,
-  });
+  const response = NextResponse.redirect(
+    new URL("/login", process.env.NEXT_PUBLIC_BASE_URL || request.url),
+    {
+      status: 303,
+    },
+  );
 
   response.cookies.set("ea_session_user", "", {
     path: "/",

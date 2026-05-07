@@ -13,9 +13,12 @@ export async function POST(request: Request) {
   const password = String(formData.get("password") ?? "");
 
   if (!username || !password) {
-    return NextResponse.redirect(new URL("/login", request.url), {
-      status: 303,
-    });
+    return NextResponse.redirect(
+      new URL("/login", process.env.NEXT_PUBLIC_BASE_URL || request.url),
+      {
+        status: 303,
+      },
+    );
   }
 
   try {
@@ -29,15 +32,21 @@ export async function POST(request: Request) {
     );
 
     if (!result.rowCount) {
-      return NextResponse.redirect(new URL("/login", request.url), {
-        status: 303,
-      });
+      return NextResponse.redirect(
+        new URL("/login", process.env.NEXT_PUBLIC_BASE_URL || request.url),
+        {
+          status: 303,
+        },
+      );
     }
 
     const user = result.rows[0];
-    const response = NextResponse.redirect(new URL("/dashboard", request.url), {
-      status: 303,
-    });
+    const response = NextResponse.redirect(
+      new URL("/dashboard", process.env.NEXT_PUBLIC_BASE_URL || request.url),
+      {
+        status: 303,
+      },
+    );
 
     response.cookies.set("ea_session_user", user.username, {
       httpOnly: true,
@@ -48,8 +57,11 @@ export async function POST(request: Request) {
 
     return response;
   } catch {
-    return NextResponse.redirect(new URL("/login", request.url), {
-      status: 303,
-    });
+    return NextResponse.redirect(
+      new URL("/login", process.env.NEXT_PUBLIC_BASE_URL || request.url),
+      {
+        status: 303,
+      },
+    );
   }
 }
