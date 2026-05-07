@@ -12,9 +12,9 @@ ARG BROKER_BROKEN_API_TOKEN
 ENV DB_URL=$DB_URL
 ENV BROKER_BROKEN_API_TOKEN=$BROKER_BROKEN_API_TOKEN
 
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=builder /app/node_modules ./node_modules
 COPY . .
-RUN bun run build
+RUN mkdir -p public && bun run build
 
 FROM oven/bun:1.3.11-alpine AS runner
 WORKDIR /app
