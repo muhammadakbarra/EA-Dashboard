@@ -12,7 +12,8 @@ ARG BROKER_BROKEN_API_TOKEN
 ENV DB_URL=$DB_URL
 ENV BROKER_BROKEN_API_TOKEN=$BROKER_BROKEN_API_TOKEN
 
-COPY --from=builder /app/node_modules ./node_modules
+# Ambil node_modules dari stage deps, bukan builder (ini yang tadi salah)
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN mkdir -p public && bun run build
 
