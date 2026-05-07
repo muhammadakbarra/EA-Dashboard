@@ -19,26 +19,26 @@ This project includes:
 ## Core Features
 
 - `MT5 Event Ingestion`
-  - Supports `candle_result` and `trade_closed`
-  - Payload validation by event type
-  - Duplicate-safe inserts (`request_id`, `deal_ticket`, and unique constraints)
-  - Optional bearer token authentication
+    - Supports `candle_result` and `trade_closed`
+    - Payload validation by event type
+    - Duplicate-safe inserts (`request_id`, `deal_ticket`, and unique constraints)
+    - Optional bearer token authentication
 
 - `EA Analytics Dashboard`
-  - Overview cards for daily performance snapshot
-  - EA page with:
-    - EA selector (button-style)
-    - Filter by account, magic number, symbol, timeframe, and date range
-    - Summary cards
-    - Signal and action distributions
-    - Candle result table
-    - Trade close table
-    - Profit curve (cumulative net profit)
+    - Overview cards for daily performance snapshot
+    - EA page with:
+        - EA selector (button-style)
+        - Filter by account, magic number, symbol, timeframe, and date range
+        - Summary cards
+        - Signal and action distributions
+        - Candle result table
+        - Trade close table
+        - Profit curve (cumulative net profit)
 
 - `Structured Data Pipeline`
-  - Raw data persisted as `payload JSONB`
-  - Processed/summary metrics computed through SQL aggregations
-  - Dashboard-ready views rendered server-side in Next.js App Router
+    - Raw data persisted as `payload JSONB`
+    - Processed/summary metrics computed through SQL aggregations
+    - Dashboard-ready views rendered server-side in Next.js App Router
 
 ## Tech Stack
 
@@ -128,24 +128,24 @@ Authorization: Bearer <token>   # optional unless token env is set
 
 ```json
 {
-  "request_id": "req-1",
-  "source": "mt5",
-  "event": "candle_result",
-  "ea_name": "broker-broke",
-  "account": 12345678,
-  "magic_number": 20260505,
-  "symbol": "XAUUSD",
-  "timeframe": "M5",
-  "broker_time": "2026.05.07 01:00:00",
-  "open": 2340.1,
-  "high": 2348.5,
-  "low": 2339.8,
-  "close": 2345.67,
-  "status": "INVALID",
-  "reason": "BuyEMAInvalid",
-  "action": "NO_ENTRY",
-  "buy_signal": false,
-  "sell_signal": false
+    "request_id": "req-1",
+    "source": "mt5",
+    "event": "candle_result",
+    "ea_name": "broker-broke",
+    "account": 12345678,
+    "magic_number": 20260505,
+    "symbol": "XAUUSD",
+    "timeframe": "M5",
+    "broker_time": "2026.05.07 01:00:00",
+    "open": 2340.1,
+    "high": 2348.5,
+    "low": 2339.8,
+    "close": 2345.67,
+    "status": "INVALID",
+    "reason": "BuyEMAInvalid",
+    "action": "NO_ENTRY",
+    "buy_signal": false,
+    "sell_signal": false
 }
 ```
 
@@ -153,9 +153,9 @@ Authorization: Bearer <token>   # optional unless token env is set
 
 ```json
 {
-  "ok": true,
-  "message": "event_saved",
-  "event": "candle_result"
+    "ok": true,
+    "message": "event_saved",
+    "event": "candle_result"
 }
 ```
 
@@ -163,9 +163,9 @@ Authorization: Bearer <token>   # optional unless token env is set
 
 ```json
 {
-  "ok": true,
-  "message": "duplicate_ignored",
-  "event": "trade_closed"
+    "ok": true,
+    "message": "duplicate_ignored",
+    "event": "trade_closed"
 }
 ```
 
