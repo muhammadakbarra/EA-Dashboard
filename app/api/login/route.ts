@@ -7,18 +7,27 @@ type LoginUser = {
   username: string;
 };
 
+type LoginErrorCode = "required" | "invalid" | "server";
+
+function redirectToLogin(request: Request, errorCode?: LoginErrorCode) {
+  const url = new URL("/login", process.env.NEXT_PUBLIC_BASE_URL || request.url);
+
+  if (errorCode) {
+    url.searchParams.set("error", errorCode);
+  }
+
+  return NextResponse.redirect(url, {
+    status: 303,
+  });
+}
+
 export async function POST(request: Request) {
   const formData = await request.formData();
   const username = String(formData.get("username") ?? "").trim();
   const password = String(formData.get("password") ?? "");
 
   if (!username || !password) {
-    return NextResponse.redirect(
-      new URL("/login", process.env.NEXT_PUBLIC_BASE_URL || request.url),
-      {
-        status: 303,
-      },
-    );
+    return redirectToLogin(request, "required");
   }
 
   try {
@@ -32,12 +41,7 @@ export async function POST(request: Request) {
     );
 
     if (!result.rowCount) {
-      return NextResponse.redirect(
-        new URL("/login", process.env.NEXT_PUBLIC_BASE_URL || request.url),
-        {
-          status: 303,
-        },
-      );
+      return redirectToLogin(request, "invalid");
     }
 
     const user = result.rows[0];
@@ -57,11 +61,6 @@ export async function POST(request: Request) {
 
     return response;
   } catch {
-    return NextResponse.redirect(
-      new URL("/login", process.env.NEXT_PUBLIC_BASE_URL || request.url),
-      {
-        status: 303,
-      },
-    );
+    return redirectToLogin(request, "server");
   }
 }

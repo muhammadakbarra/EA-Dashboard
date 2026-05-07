@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import LogoutButton from "./logout-button";
 
 const navItems = [
   { label: "Overview", href: "/dashboard" },
@@ -20,8 +21,8 @@ export default async function DashboardLayout({
 
   return (
     <main className="min-h-screen w-full bg-slate-100 text-slate-900">
-      <div className="grid min-h-screen w-full grid-cols-1 lg:grid-cols-[320px_1fr]">
-        <aside className="border-b border-slate-200 bg-white p-8 lg:border-r lg:border-b-0">
+      <div className="min-h-screen w-full lg:pl-[320px]">
+        <aside className="flex flex-col border-b border-slate-200 bg-white p-8 lg:fixed lg:inset-y-0 lg:left-0 lg:w-[320px] lg:overflow-y-auto lg:border-r lg:border-b-0">
           <p className="text-sm font-semibold tracking-[0.2em] text-slate-500 uppercase">
             EA Dashboard
           </p>
@@ -42,14 +43,9 @@ export default async function DashboardLayout({
             ))}
           </nav>
 
-          <form method="POST" action="/api/logout" className="mt-10">
-            <button
-              type="submit"
-              className="inline-flex w-full items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-5 py-4 text-lg font-semibold text-rose-600 transition hover:bg-rose-100"
-            >
-              Logout
-            </button>
-          </form>
+          <div className="mt-10 lg:mt-auto lg:pt-10">
+            <LogoutButton />
+          </div>
         </aside>
 
         <section className="p-8 md:p-12">{children}</section>
