@@ -12,7 +12,7 @@ EA Dashboard is designed to solve two core questions:
 This project includes:
 
 - Secure login flow (`/login` -> `/dashboard`)
-- MT5 event ingestion API (`POST /api/broker-broken`)
+- MT5 event ingestion APIs (`POST /api/broker-broken`, `POST /api/engulfing-broken`)
 - PostgreSQL data model for raw + analytics-friendly storage
 - Dashboard views for summary metrics and EA-level analysis
 
@@ -55,6 +55,7 @@ This project includes:
 app/
   api/
     broker-broken/route.ts   # MT5 ingestion endpoint
+    engulfing-broken/route.ts # MT5 ingestion alias for engulfing EA
     login/route.ts           # login handler
     logout/route.ts          # logout handler
   dashboard/
@@ -95,7 +96,7 @@ BROKER_BROKEN_API_TOKEN=<your_secret_token>
 Notes:
 
 - `BROKER_BROKEN_API_TOKEN` is optional.
-- If token is set, `Authorization: Bearer <token>` becomes required for `/api/broker-broken`.
+- If token is set, `Authorization: Bearer <token>` becomes required for all ingestion endpoints.
 
 ### 4. Initialize Database Schema
 
@@ -115,7 +116,8 @@ Open: `http://localhost:3000`
 
 ### Endpoint
 
-`POST /api/broker-broken`
+- `POST /api/broker-broken`
+- `POST /api/engulfing-broken`
 
 ### Headers
 
